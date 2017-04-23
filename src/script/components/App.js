@@ -34,11 +34,17 @@ class App extends Component {
       return <Lane {...l} tasks={lane_tasks} key={l.id} />;
     });
     return <div>
-      <Calendar days={date} />
-      <Meter name="Success" filled={success} total='1' />
-      <div className="board">{lane_nodes}</div>
-      <Alert text={alert} />
-    </div>;
+        <header className="header">
+          <div className="header-meter">
+            <Meter filled={success} total='1' />
+          </div>
+          <div className="header-calendar">
+            <Calendar days={date} />
+          </div>
+        </header>
+        <main className="board">{lane_nodes}</main>
+        <Alert text={alert} />
+      </div>;
   }
 }
 
