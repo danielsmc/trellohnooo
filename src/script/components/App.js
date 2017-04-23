@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Alert from './Alert';
 import Calendar from './Calendar';
 import Meter from './Meter';
 import Lane from './Lane';
@@ -26,7 +27,7 @@ class App extends Component {
   }
 
   render() {
-    const { lanes, tasks, date, success } = this.state;
+    const { lanes, tasks, date, success, alert } = this.state;
     const lane_nodes = lanes.map((l) => {
       let lane_tasks = tasks.filter((t) => (t.status === l.id));
       lane_tasks.reverse();
@@ -36,6 +37,7 @@ class App extends Component {
       <Calendar days={date} />
       <Meter name="Success" filled={success} total='1' />
       <div className="board">{lane_nodes}</div>
+      <Alert text={alert} />
     </div>;
   }
 }

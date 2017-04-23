@@ -10,8 +10,9 @@ let staaaaate = {
 		// {id: 1, name: "Frobulate the containment grid", status: "todo"}
 	],
 	date: 0,
-	task_creation_rate: 1,
-	work_capacity: 100
+	task_creation_rate: 5,
+	work_capacity: 100,
+	// alert: "woooow"
 };
 let observer = null;
 
@@ -39,6 +40,11 @@ function emitChange() {
   observer(calc(staaaaate));
 }
 
+export function clearAlert() {
+	staaaaate.alert = false;
+	emitChange();
+}
+
 export function observe(o) {
   if (observer) {
     throw new Error('Multiple observers not implemented.');
@@ -53,6 +59,16 @@ export function observe(o) {
 };
 
 export function moveCard(card_id,status) {
+	const age = staaaaate.date-staaaaate.tasks[card_id].created_at;
+	if (status=="done") {
+		for (let i=0;i<age;i++) {
+			if (Math.random()<0.01) {
+				staaaaate.alert = "lol nm";
+				status = "rejected";
+				break;
+			}
+		}
+	}
 	staaaaate.tasks[card_id].status = status;
 	emitChange();
 }
