@@ -12,7 +12,7 @@ let staaaaate = {
 	date: 0,
 	task_creation_rate: 1,
 	work_capacity: 100,
-	// alert: "woooow"
+	alert: "woooow"
 };
 let observer = null;
 
