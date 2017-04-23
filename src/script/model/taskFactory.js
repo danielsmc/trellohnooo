@@ -4,6 +4,7 @@ import {technologies} from './json/new_technologies.json';
 import {appliances} from './json/appliances.json';
 import {colors} from './json/crayola.json';
 import tolkienCharacterNames from './json/tolkienCharacterNames.json';
+import {deities} from './json/lovecraft.json';
 
 const tolk = tolkienCharacterNames.names.filter((n) => (n.indexOf(" ")==-1))
 
@@ -24,7 +25,7 @@ function recase(str) {
 	return str[0].toUpperCase() + str.slice(1);
 }
 
-function imagineName() {
+function imagineName(endTimes) {
 	const comp = pick(compounds);
 
 	return recase(pick(
@@ -33,12 +34,12 @@ function imagineName() {
 		`Can't launch without ${pick(technologies)} support`,
 		`${pick(verbs)} ${pick(appliances)} interface`,
 		`Change ${pick(design_elements)} color from ${pick(colors).color} to ${pick(colors).color}`,
-		`${pick(verbs)} ${pick(tolk)} ${pick("framework","API")}`
+		`${pick(verbs)} ${pick(endTimes?deities:tolk)} ${pick("framework","API")}`
 		));
 }
 
-export default function newTask() {
-	return {name: imagineName(),
+export default function newTask(endTimes) {
+	return {name: imagineName(endTimes),
 		    effort: Math.floor(randRange(5,21)),
 			value: Math.floor(randRange(5,21))
 		};
