@@ -39,7 +39,7 @@ function imagineName() {
 
 export default function newTask() {
 	return {name: imagineName(),
-		    effort: Math.floor(randRange(5,11)),
-			value: Math.floor(randRange(5,11))
+		    effort: Math.floor(randRange(5,21)),
+			value: Math.floor(randRange(5,21))
 		};
 }
