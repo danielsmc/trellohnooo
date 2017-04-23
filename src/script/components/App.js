@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Calendar from './Calendar';
+import Meter from './Meter';
 import Lane from './Lane';
 import { observe } from '../State';
 import { DragDropContext } from 'react-dnd';
@@ -27,11 +28,13 @@ class App extends Component {
   render() {
     const { lanes, tasks, date } = this.state;
     const lane_nodes = lanes.map((l) => {
-      const lane_tasks = tasks.filter((t) => (t.status === l.id));
+      let lane_tasks = tasks.filter((t) => (t.status === l.id));
+      lane_tasks.reverse();
       return <Lane {...l} tasks={lane_tasks} key={l.id} />;
     });
     return <div>
       <Calendar days={date} />
+      <Meter name="Success" filled='90' total='100' />
       <div className="board">{lane_nodes}</div>
     </div>;
   }
