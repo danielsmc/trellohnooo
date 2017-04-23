@@ -17,17 +17,15 @@ function collect(connect, monitor) {
 
 class Card extends Component {
   render() {
-    const { connectDragSource, isDragging, name, effort, value, age, work_done } = this.props;
+    const { connectDragSource, isDragging, id, name, effort, value, age, work_done } = this.props;
     return connectDragSource(
-		<li className="card">
-			{name}
-			<ul>
-				<li>Effort: {effort}</li>
-				<li>Value: {value}</li>
-				<li>Age: {Math.floor(age)} days</li>
-				<li><Meter name="Progress" filled={work_done} total={effort} /></li>
-			</ul>
-		</li>
+		<div className="card">
+      <div className="card-title">Card {id} <span className="card-age">{Math.floor(age)} days old</span></div>
+			<div className="card-effort"><strong>{effort}</strong> effort</div>
+      <div className="card-value"><strong>{value}</strong> pts</div>
+			<p className="card-task">{name}</p>
+			<Meter filled={work_done} total={effort} />
+		</div>
 	);
   }
 }
