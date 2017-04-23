@@ -12,6 +12,7 @@ let staaaaate = {
 	date: 0,
 	// task_creation_rate: 2,
 	work_capacity: 80,
+	gameOver:false
 	// alert: {text:"woooow"}
 };
 let observer = null;
@@ -130,6 +131,7 @@ function doTick(thisTick) {
 
 	if (success<0) {
 		setAlert({text:"You are fired.", special: "dog"});
+		staaaaate.gameOver=true;
 	} else {
 		requestAnimationFrame(doTick);
 	}

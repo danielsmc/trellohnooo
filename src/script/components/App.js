@@ -27,12 +27,13 @@ class App extends Component {
   }
 
   render() {
-    const { lanes, tasks, date, success, alert } = this.state;
+    const { lanes, tasks, date, success, alert, gameOver } = this.state;
     const lane_nodes = lanes.map((l) => {
       let lane_tasks = tasks.filter((t) => (t.status === l.id));
       lane_tasks.reverse();
       return <Lane {...l} tasks={lane_tasks} key={l.id} />;
     });
+    const fire = gameOver?<div className="game-over"></div>:null;
     return <div>
         <header className="header">
           <div className="header-logo">
@@ -48,6 +49,7 @@ class App extends Component {
         <main className="board">{lane_nodes}</main>
         <Alert {...alert} />
         <audio className="tunez" src="audio/tunez.mp3" autoPlay="true" loop="true" />
+        {fire}
       </div>;
   }
 }
