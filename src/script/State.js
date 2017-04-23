@@ -103,9 +103,11 @@ function doTick(thisTick) {
 
 	staaaaate.date += tickLen;
 
+	const success = successMetric(staaaaate);
+
 	const task_creation_rate = 1 + 0.25 * staaaaate.date
 	if (tickTrial(task_creation_rate,tickLen)) {
-		let task = newTask();
+		let task = newTask(success < 0.3);
 		Object.assign(task, {
 			id: staaaaate.tasks.length,
 			status: "todo",
@@ -126,7 +128,7 @@ function doTick(thisTick) {
 		}
 	})
 
-	if (successMetric(staaaaate) < 0) {
+	if (success<0) {
 		setAlert({text:"You are fired.", special: "dog"});
 	} else {
 		requestAnimationFrame(doTick);
