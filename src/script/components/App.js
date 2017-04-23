@@ -35,6 +35,9 @@ class App extends Component {
     });
     return <div>
         <header className="header">
+          <div className="header-logo">
+            <img src="logo.png" />
+          </div>
           <div className="header-meter">
             <Meter filled={success} total='1' />
           </div>
