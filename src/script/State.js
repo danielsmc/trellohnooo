@@ -10,7 +10,7 @@ let staaaaate = {
 		// {id: 1, name: "Frobulate the containment grid", status: "todo"}
 	],
 	date: 0,
-	task_creation_rate: 1,
+	task_creation_rate: 5,
 	work_capacity: 24
 };
 let observer = null;

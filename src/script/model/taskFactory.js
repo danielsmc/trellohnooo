@@ -2,7 +2,10 @@ import {compounds} from './json/compounds.json';
 import {encouraging_words} from './json/encouraging_words.json';
 import {technologies} from './json/new_technologies.json';
 import {appliances} from './json/appliances.json';
-import {colors} from './json/crayola.json'
+import {colors} from './json/crayola.json';
+import tolkienCharacterNames from './json/tolkienCharacterNames.json';
+
+const tolk = tolkienCharacterNames.names.filter((n) => (n.indexOf(" ")==-1))
 
 const design_elements = ["button", "header", "background", "text", "accent"];
 
@@ -16,7 +19,7 @@ export function pick() {
 }
 
 function recase(str) {
-	return str[0].toUpperCase() + str.slice(1).toLowerCase();
+	return str[0].toUpperCase() + str.slice(1);
 }
 
 function imagineName() {
@@ -27,7 +30,8 @@ function imagineName() {
 		`${pick(design_elements)} should be ${pick("more","less")} ${pick(encouraging_words)}`,
 		`Can't launch without ${pick(technologies)} support`,
 		`Troubleshoot ${pick(appliances)} interface`,
-		`Change ${pick(design_elements)} color from ${pick(colors).color} to ${pick(colors).color}`
+		`Change ${pick(design_elements)} color from ${pick(colors).color} to ${pick(colors).color}`,
+		`${pick("integrate","migrate to","upgrade")} ${pick(tolk)} ${pick("framework","API")}`
 		));
 }
 
