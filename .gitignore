@@ -1,0 +1,7 @@
+secrets.yaml
+.DS_Store
+node_modules
+*.pyc
+docs
+*.sublime-workspace
+*.mp4
