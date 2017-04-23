@@ -10,9 +10,9 @@ let staaaaate = {
 		// {id: 1, name: "Frobulate the containment grid", status: "todo"}
 	],
 	date: 0,
-	task_creation_rate: 1,
-	work_capacity: 100,
-	alert: "woooow"
+	// task_creation_rate: 2,
+	work_capacity: 40,
+	// alert: "woooow"
 };
 let observer = null;
 
@@ -21,13 +21,13 @@ function sum(xs) {
 }
 
 function successMetric(st) {
-	const grace = 10;
+	const grace = 500;
 	const tasks = st.tasks;
 
 	const total = sum(tasks.map((t) => t.value));
-	const done = sum(tasks.map((t) => (t.status=="done"?t.value:0)));
+	const done = sum(tasks.map((t) => (t.value*(t.status=="rejected"?0:(t.work_done/t.effort)))));
 
-	return (done+grace)/total;
+	return 1-(total-done)/grace;
 }
 
 function calc(st) {
@@ -38,6 +38,11 @@ function calc(st) {
 
 function emitChange() {
   observer(calc(staaaaate));
+}
+
+function setAlert(obj) {
+	obj.headline = obj.headline || "Alert";
+	staaaaate.alert = obj;
 }
 
 export function clearAlert() {
@@ -64,7 +69,7 @@ export function moveCard(card_id,status) {
 	if (status=="done") {
 		for (let i=0;i<age;i++) {
 			if (Math.random()<0.01) {
-				staaaaate.alert = "Sorry, the requirements changed and we didn't need to do that after all. Did you not see the email?";
+				setAlert({text: "Sorry, the requirements changed and we didn't need to do that after all. Did you not see the email?"});
 				status = "rejected";
 				break;
 			}
@@ -93,13 +98,13 @@ function tickTrial(r,time) { // r is per day
 let lastTick = 0;
 
 function doTick(thisTick) {
-	requestAnimationFrame(doTick);
 	const tickLen = days_per_ms*(thisTick-lastTick);
 	lastTick = thisTick;
 
 	staaaaate.date += tickLen;
 
-	if (tickTrial(staaaaate.task_creation_rate,tickLen)) {
+	const task_creation_rate = 1 + 0.25 * staaaaate.date
+	if (tickTrial(task_creation_rate,tickLen)) {
 		let task = newTask();
 		Object.assign(task, {
 			id: staaaaate.tasks.length,
@@ -120,6 +125,12 @@ function doTick(thisTick) {
 			t.work_done = Math.min(t.work_done,t.effort);
 		}
 	})
+
+	if (successMetric(staaaaate) < 0) {
+		setAlert({text:"You are fired.", special: "dog"});
+	} else {
+		requestAnimationFrame(doTick);
+	}
 
 	emitChange();
 };

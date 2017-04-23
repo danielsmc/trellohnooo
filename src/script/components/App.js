@@ -43,7 +43,8 @@ class App extends Component {
           </div>
         </header>
         <main className="board">{lane_nodes}</main>
-        <Alert text={alert} />
+        <Alert {...alert} />
+        <audio src="tunez.mp3" autoPlay="true" loop="true" />
       </div>;
   }
 }
