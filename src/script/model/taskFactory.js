@@ -9,6 +9,8 @@ const tolk = tolkienCharacterNames.names.filter((n) => (n.indexOf(" ")==-1))
 
 const design_elements = ["button", "header", "background", "text", "accent"];
 
+const verbs = ["integrate","migrate to","upgrade","troubleshoot","refactor"]
+
 function randRange(min,max) {
 	return min + (max-min)*Math.random();
 }
@@ -29,9 +31,9 @@ function imagineName() {
 		`Make ${comp.compoundWord} ${pick("more","less")} ${pick(comp.firstWord,comp.secondWord)}`,
 		`${pick(design_elements)} should be ${pick("more","less")} ${pick(encouraging_words)}`,
 		`Can't launch without ${pick(technologies)} support`,
-		`Troubleshoot ${pick(appliances)} interface`,
+		`${pick(verbs)} ${pick(appliances)} interface`,
 		`Change ${pick(design_elements)} color from ${pick(colors).color} to ${pick(colors).color}`,
-		`${pick("integrate","migrate to","upgrade")} ${pick(tolk)} ${pick("framework","API")}`
+		`${pick(verbs)} ${pick(tolk)} ${pick("framework","API")}`
 		));
 }
 

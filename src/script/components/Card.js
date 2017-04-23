@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
+import Meter from './Meter';
 
 const cardSource = {
   beginDrag(props) {
@@ -16,7 +17,7 @@ function collect(connect, monitor) {
 
 class Card extends Component {
   render() {
-    const { connectDragSource, isDragging, name, effort, value, age } = this.props;
+    const { connectDragSource, isDragging, name, effort, value, age, work_done } = this.props;
     return connectDragSource(
 		<li className="card">
 			{name}
@@ -24,6 +25,7 @@ class Card extends Component {
 				<li>Effort: {effort}</li>
 				<li>Value: {value}</li>
 				<li>Age: {Math.floor(age)} days</li>
+				<li><Meter name="Progress" filled={work_done} total={effort} /></li>
 			</ul>
 		</li>
 	);

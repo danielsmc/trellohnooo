@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import classNames from 'classnames';
 import Card from './Card';
-import {moveCard} from './../State';
+import {moveCard, canMove} from './../State';
 
 const laneTarget = {
   drop(props,monitor) {
   	moveCard(monitor.getItem().taskId,props.id);
+  },
+  canDrop(props,monitor) {
+  	return canMove(monitor.getItem().taskId,props.id);
   }
 };
 

@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   render() {
-    const { lanes, tasks, date } = this.state;
+    const { lanes, tasks, date, success } = this.state;
     const lane_nodes = lanes.map((l) => {
       let lane_tasks = tasks.filter((t) => (t.status === l.id));
       lane_tasks.reverse();
@@ -34,7 +34,7 @@ class App extends Component {
     });
     return <div>
       <Calendar days={date} />
-      <Meter name="Success" filled='90' total='100' />
+      <Meter name="Success" filled={success} total='1' />
       <div className="board">{lane_nodes}</div>
     </div>;
   }
