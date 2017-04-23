@@ -40,8 +40,9 @@ function emitChange() {
   observer(calc(staaaaate));
 }
 
-function setAlert(text) {
-	staaaaate.alert = text
+function setAlert(obj) {
+	obj.headline = obj.headline || "Alert";
+	staaaaate.alert = obj;
 }
 
 export function clearAlert() {
@@ -68,7 +69,7 @@ export function moveCard(card_id,status) {
 	if (status=="done") {
 		for (let i=0;i<age;i++) {
 			if (Math.random()<0.01) {
-				setAlert("Sorry, the requirements changed and we didn't need to do that after all. Did you not see the email?");
+				setAlert({text: "Sorry, the requirements changed and we didn't need to do that after all. Did you not see the email?"});
 				status = "rejected";
 				break;
 			}
@@ -97,7 +98,6 @@ function tickTrial(r,time) { // r is per day
 let lastTick = 0;
 
 function doTick(thisTick) {
-	requestAnimationFrame(doTick);
 	const tickLen = days_per_ms*(thisTick-lastTick);
 	lastTick = thisTick;
 
@@ -127,7 +127,9 @@ function doTick(thisTick) {
 	})
 
 	if (successMetric(staaaaate) < 0) {
-		setAlert("You are fired.")
+		setAlert({text:"You are fired.", special: "dog"});
+	} else {
+		requestAnimationFrame(doTick);
 	}
 
 	emitChange();
