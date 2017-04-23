@@ -11,7 +11,8 @@ let staaaaate = {
 	],
 	date: 0,
 	task_creation_rate: 1,
-	work_capacity: 100
+	work_capacity: 100,
+	// alert: "woooow"
 };
 let observer = null;
 
@@ -39,6 +40,11 @@ function emitChange() {
   observer(calc(staaaaate));
 }
 
+export function clearAlert() {
+	staaaaate.alert = false;
+	emitChange();
+}
+
 export function observe(o) {
   if (observer) {
     throw new Error('Multiple observers not implemented.');
@@ -53,6 +59,17 @@ export function observe(o) {
 };
 
 export function moveCard(card_id,status) {
+	const c = staaaaate.tasks[card_id];
+	const age = staaaaate.date-c.created_at;
+	if (status=="done") {
+		for (let i=0;i<age;i++) {
+			if (Math.random()<0.01) {
+				staaaaate.alert = "Sorry, the requirements changed and we didn't need to do that after all. Did you not see the email?";
+				status = "rejected";
+				break;
+			}
+		}
+	}
 	staaaaate.tasks[card_id].status = status;
 	emitChange();
 }
@@ -66,18 +83,23 @@ export function canMove(card_id,status) {
 }
 
 const seconds_per_day = 5;
-const ticks_per_second = 10;
-const days_per_tick = 1/(seconds_per_day*ticks_per_second);
+const days_per_ms = 1/(seconds_per_day*1000);
 
 
-function tickTrial(r) { // r is per day
-	return Math.random() <= r*days_per_tick;
+function tickTrial(r,time) { // r is per day
+	return Math.random() <= r*time; //this is not strictly accurate
 }
 
+let lastTick = 0;
 
+function doTick(thisTick) {
+	requestAnimationFrame(doTick);
+	const tickLen = days_per_ms*(thisTick-lastTick);
+	lastTick = thisTick;
 
-window.setInterval(function doTick() {
-	if (tickTrial(staaaaate.task_creation_rate)) {
+	staaaaate.date += tickLen;
+
+	if (tickTrial(staaaaate.task_creation_rate,tickLen)) {
 		let task = newTask();
 		Object.assign(task, {
 			id: staaaaate.tasks.length,
@@ -94,11 +116,12 @@ window.setInterval(function doTick() {
 
 	staaaaate.tasks.forEach((t) => {
 		if (t.status == "doing") {
-			t.work_done += days_per_tick * oversub;
+			t.work_done += tickLen * oversub;
 			t.work_done = Math.min(t.work_done,t.effort);
 		}
 	})
 
-	staaaaate.date += days_per_tick;
 	emitChange();
-},1000/ticks_per_second);
+};
+
+requestAnimationFrame(doTick);
