@@ -3,7 +3,7 @@ import {clearAlert} from '../State';
 
 
 const Alert = ({text,headline,special}) => {
-	const dog = (special=="dog")?<img src="dog.jpg" />:null;
+	const dog = (special=="dog")?<img src="dog.png" />:null;
 	if (!text) return null;
 	return <div className="alert">
     <button className="alert-close" onClick={clearAlert}>
