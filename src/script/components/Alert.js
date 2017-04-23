@@ -14,3 +14,4 @@ const Alert = ({text,headline,special}) => {
     {dog}
     </div>;
 }
+export default Alert;
