@@ -59,11 +59,12 @@ export function observe(o) {
 };
 
 export function moveCard(card_id,status) {
-	const age = staaaaate.date-staaaaate.tasks[card_id].created_at;
+	const c = staaaaate.tasks[card_id];
+	const age = staaaaate.date-c.created_at;
 	if (status=="done") {
 		for (let i=0;i<age;i++) {
 			if (Math.random()<0.01) {
-				staaaaate.alert = "lol nm";
+				staaaaate.alert = "Sorry, the requirements changed and we didn't need to do that after all. Did you not see the email?";
 				status = "rejected";
 				break;
 			}
