@@ -4,6 +4,7 @@ import {clearAlert} from '../State';
 
 const Alert = ({text,headline,special}) => {
 	const dog = (special=="dog")?<img src="dog.png" />:null;
+    const soundPath = (special=="dog")?"audio/Dial Tones.wav":"audio/Cymbal Crash.wav";
 	if (!text) return null;
 	return <div className="alert">
     <button className="alert-close" onClick={clearAlert}>
@@ -11,6 +12,7 @@ const Alert = ({text,headline,special}) => {
     </button>
     <p className="alert-title">{headline}</p>
     <p className="alert-text">{text}</p>
+    <audio src={soundPath} autoPlay="true" />
     {dog}
     </div>;
 }

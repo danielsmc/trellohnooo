@@ -11,8 +11,8 @@ let staaaaate = {
 	],
 	date: 0,
 	// task_creation_rate: 2,
-	work_capacity: 40,
-	// alert: "woooow"
+	work_capacity: 80,
+	// alert: {text:"woooow"}
 };
 let observer = null;
 
@@ -21,7 +21,7 @@ function sum(xs) {
 }
 
 function successMetric(st) {
-	const grace = 500;
+	const grace = 400;
 	const tasks = st.tasks;
 
 	const total = sum(tasks.map((t) => t.value));
@@ -46,7 +46,7 @@ function setAlert(obj) {
 }
 
 export function clearAlert() {
-	staaaaate.alert = false;
+	staaaaate.alert = {};
 	emitChange();
 }
 
@@ -68,7 +68,7 @@ export function moveCard(card_id,status) {
 	const age = staaaaate.date-c.created_at;
 	if (status=="done") {
 		for (let i=0;i<age;i++) {
-			if (Math.random()<0.01) {
+			if (Math.random()<0.02) {
 				setAlert({text: "Sorry, the requirements changed and we didn't need to do that after all. Did you not see the email?"});
 				status = "rejected";
 				break;
@@ -105,7 +105,7 @@ function doTick(thisTick) {
 
 	const success = successMetric(staaaaate);
 
-	const task_creation_rate = 1 + 0.25 * staaaaate.date
+	const task_creation_rate = 2 + 0.4 * staaaaate.date
 	if (tickTrial(task_creation_rate,tickLen)) {
 		let task = newTask(success < 0.3);
 		Object.assign(task, {
@@ -123,7 +123,7 @@ function doTick(thisTick) {
 
 	staaaaate.tasks.forEach((t) => {
 		if (t.status == "doing") {
-			t.work_done += tickLen * oversub;
+			t.work_done += 5 * tickLen * oversub;
 			t.work_done = Math.min(t.work_done,t.effort);
 		}
 	})
@@ -133,6 +133,7 @@ function doTick(thisTick) {
 	} else {
 		requestAnimationFrame(doTick);
 	}
+	document.querySelector(".tunez").playbackRate = 2 - success;
 
 	emitChange();
 };

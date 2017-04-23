@@ -25,10 +25,12 @@ class Lane extends Component {
 		const {name,tasks,connectDropTarget, isOver} = this.props;
 		const cards = tasks.map((t) => <Card {...t} key={t.id} />);
 		const classes = classNames({lane: true, 'lane-hover':isOver});
+    const hoverSound = isOver?<audio src="audio/hover.mp3" autoPlay="true" />:null;
 		return connectDropTarget(
 			<div className={classes}>
         <p className="lane-title">{name}</p>
 				<ul>{cards}</ul>
+        {hoverSound}
 			</div>
 		);
 	}
