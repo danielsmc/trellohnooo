@@ -1,20 +1,13 @@
-@require '_common'
+// Dirty global vars
+color-black = #515151
+color-brown = #C07B20
+color-gold = #E7D46A
+color-green = #DEF1D4
 
-.board
-	display: flex
-	
 
-.lane
-	flex-grow: 1
-	flex-basis: 33%
-	height: 90vh
-	overflow: scroll
-	
-.lane-hover
-	background: lightgray
+// Componentsssssss!
+@require '_base'
 
-.card
-	display: block
-	border: 1px solid black
-	margin: 0.25em
-	border-radius: 5px
+@require '_board'
+@require '_lane'
+@require '_card'
