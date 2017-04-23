@@ -26,7 +26,8 @@ class Lane extends Component {
 		const cards = tasks.map((t) => <Card {...t} key={t.id} />);
 		const classes = classNames({lane: true, 'lane-hover':isOver});
 		return connectDropTarget(
-			<div className={classes}>{name}
+			<div className={classes}>
+        <p className="lane-title">{name}</p>
 				<ul>{cards}</ul>
 			</div>
 		);
