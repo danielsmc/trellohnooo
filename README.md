@@ -1,5 +1,5 @@
 Trellohnooo is an apocalyptic project management simulator. It was created by [Eric Bailey](https://twitter.com/ericwbailey) and [Daniel McLaughlin](https://twitter.com/mclaughlin) at the [Purple Monkey Game Jam](https://purplemonkeygamejam.com). The theme of the jam was [This is Fine](http://gunshowcomic.com/648).
 
-Now you can [play Trellonooo](https://danielsmc.github.io/trellohnoo). The premise: you have been placed in charge of an important project. New tasks, each one vital to the success of the project, appear in the "To Do" column. Drag them to "In Progress" to start working on them. As soon as a task is done, drag it to "Done." Please try and keep up. This is fine.
+Now you can [play Trellonooo](https://danielsmc.github.io/trellohnooo). The premise: you have been placed in charge of an important project. New tasks, each one vital to the success of the project, appear in the "To Do" column. Drag them to "In Progress" to start working on them. As soon as a task is done, drag it to "Done." Please try and keep up. This is fine.
 
 Trellohnooo is, of course, not at all affiliated with real-life Trello. The task names are generated with content from the [Corpora project](https://github.com/dariusk/corpora).
