@@ -10,6 +10,7 @@ var uglify = require('gulp-uglify');
 var pump = require('pump');
 var named = require('vinyl-named');
 var webpack = require('webpack-stream');
+var wp =require('webpack');
 
 function pumpedTask(name,steps) {
   gulp.task(name, (cb) => {
@@ -74,6 +75,12 @@ pumpedTask('scripts-prod', () => [
         filename: '[name].js',
         library: '[name]'
       },
+      plugins: [
+        new wp.DefinePlugin({
+          'process.env': {
+            NODE_ENV: JSON.stringify('production')
+          }})
+      ],
       module: {
         loaders: [babel_loader]
       }
