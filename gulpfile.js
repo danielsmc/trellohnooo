@@ -19,13 +19,19 @@ function pumpedTask(name,steps) {
   });
 }
 
+const dirs = {prod:"docs",dev:"build"};
+
 gulp.task('clean', function() {
-   return del('docs');
+   return del(dirs.dev);
+});
+
+gulp.task('clean-prod', function() {
+   return del(dirs.prod);
 });
 
 gulp.task('browser-sync', function() {
   bs.init({
-    server: "docs",
+    server: dirs.dev,
     ghostMode: false
   });
 });
@@ -39,7 +45,6 @@ var babel_loader = {
             "plugins": [
               "transform-class-properties",
               "inline-json-import"
-              // ["transform-react-jsx", { "pragma": "preact.h" }]
             ]
           }
         };
@@ -58,7 +63,7 @@ pumpedTask('scripts', () => [
       devtool: "source-map"
     }
     ),
-    gulp.dest('docs/js/')
+    gulp.dest(dirs.dev+'/js/')
 ]);
 
 pumpedTask('scripts-prod', () => [
@@ -74,7 +79,7 @@ pumpedTask('scripts-prod', () => [
       }
     }),
     uglify(),
-    gulp.dest('docs/js/')
+    gulp.dest(dirs.prod+'/js/')
 ]);
 
 pumpedTask('styles', () => [
@@ -83,26 +88,26 @@ pumpedTask('styles', () => [
    stylus(),
    autoprefixer(),
    sourcemaps.write(),
-   gulp.dest('docs/style')
+   gulp.dest(dirs.dev+'/style')
 ]);
 
 pumpedTask('styles-prod', () => [
    gulp.src(['src/style/**/*.styl','!src/style/**/_*.styl']),
    stylus({compress: true}),
    autoprefixer(),
-   gulp.dest('docs/style')
+   gulp.dest(dirs.prod+'/style')
 ]);
 
 pumpedTask('markup', () => [
    gulp.src('src/markup/**/*'),
-   gulp.dest('docs')
+   gulp.dest(dirs.dev)
 ]);
 
-pumpedTask('inline', () => [
-  gulp.src('docs/tweet.html'),
-  inline({base: "docs/"}),
-  gulp.dest('docs')
+pumpedTask('markup-prod', () => [
+   gulp.src('src/markup/**/*'),
+   gulp.dest(dirs.prod)
 ]);
+
 
 gulp.task('watch',function() {
   var watches = {
@@ -117,4 +122,4 @@ gulp.task('watch',function() {
 
 gulp.task('default', gulpSequence('clean','watch',['scripts','markup','styles'],'browser-sync'));
 
-gulp.task('prod', gulpSequence('clean',['scripts-prod','markup','styles-prod'],'inline'));
+gulp.task('prod', gulpSequence('clean-prod',['scripts-prod','markup-prod','styles-prod']));

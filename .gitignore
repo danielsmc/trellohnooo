@@ -1,7 +1,5 @@
 secrets.yaml
 .DS_Store
 node_modules
-*.pyc
-docs
+build
 *.sublime-workspace
-*.mp4
